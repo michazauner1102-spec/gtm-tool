@@ -12,6 +12,8 @@ Dieses Repository ist die Quiver-Instanz von [smartConsulting Zauner](https://ww
 
 ## Einrichtung (ca. 30 Minuten)
 
+Nur lokal ausprobieren (http://localhost:3000)? Siehe [LOKAL-STARTEN.md](LOKAL-STARTEN.md).
+
 1. **Neon-Datenbank anlegen**, am einfachsten in Vercel unter *Storage → Neon*. Daraus kommen `DATABASE_URL` (pooled) und `DIRECT_URL` (direkt). Quiver braucht Neon, weil die Middleware über Neons HTTP-Treiber prüft, wer Zugriff hat.
 2. **Supabase-Projekt anlegen** (nur für den Login): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
 3. **Anthropic-API-Key** unter [console.anthropic.com](https://console.anthropic.com/settings/keys) erzeugen: `ANTHROPIC_API_KEY`.
