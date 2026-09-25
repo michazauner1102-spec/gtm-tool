@@ -1,0 +1,313 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model ContextVersion {
+  id                   String   @id @default(uuid())
+  version              Int
+  isActive             Boolean  @default(false)
+  positioningStatement String?
+  icpDefinition        Json?
+  messagingPillars     Json?
+  competitiveLandscape Json?
+  customerLanguage     Json?
+  proofPoints          Json?
+  activeHypotheses     Json?
+  brandVoice           String?
+  wordsToUse           String[]
+  wordsToAvoid         String[]
+  updatedBy            String?
+  updateSource         String?
+  changeSummary        String?
+  createdAt            DateTime @default(now())
+
+  sessions      Session[]
+  artifacts     Artifact[]
+  campaigns     Campaign[]
+  contentPieces ContentPiece[]
+
+  @@index([isActive])
+  @@map("context_versions")
+}
+
+model Campaign {
+  id               String    @id @default(uuid())
+  name             String
+  description      String?
+  goal             String?
+  channels         String[]
+  status           String    @default("planning")
+  priority         String    @default("medium")
+  startDate        DateTime?
+  endDate          DateTime?
+  ownerId          String?
+  contextVersionId String?
+  links            Json? // [{label: string, url: string}]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  contextVersion  ContextVersion?  @relation(fields: [contextVersionId], references: [id])
+  sessions        Session[]
+  artifacts       Artifact[]
+  performanceLogs PerformanceLog[]
+  researchEntries ResearchEntry[]
+  contentPieces   ContentPiece[]
+
+  @@index([status])
+  @@map("campaigns")
+}
+
+model Session {
+  id               String   @id @default(uuid())
+  title            String?
+  mode             String
+  skillsLoaded     String[]
+  messages         Json     @default("[]")
+  campaignId       String?
+  contextVersionId String?
+  createdBy        String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  isArchived       Boolean  @default(false)
+
+  campaign       Campaign?       @relation(fields: [campaignId], references: [id])
+  contextVersion ContextVersion? @relation(fields: [contextVersionId], references: [id])
+  artifacts      Artifact[]
+
+  @@map("sessions")
+}
+
+model Artifact {
+  id               String   @id @default(uuid())
+  title            String
+  type             String
+  content          String
+  status           String   @default("draft")
+  skillUsed        String?
+  campaignId       String
+  sessionId        String?
+  contextVersionId String?
+  version          Int      @default(1)
+  parentArtifactId String?
+  tags             String[]
+  createdBy        String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  campaign        Campaign         @relation(fields: [campaignId], references: [id])
+  session         Session?         @relation(fields: [sessionId], references: [id])
+  contextVersion  ContextVersion?  @relation(fields: [contextVersionId], references: [id])
+  parentArtifact  Artifact?        @relation("ArtifactVersions", fields: [parentArtifactId], references: [id])
+  childArtifacts  Artifact[]       @relation("ArtifactVersions")
+  performanceLogs PerformanceLog[]
+  contentPieces   ContentPiece[]
+
+  @@map("artifacts")
+}
+
+model PerformanceLog {
+  id                     String    @id @default(uuid())
+  artifactId             String?
+  campaignId             String
+  logType                String
+  metrics                Json?
+  qualitativeNotes       String?
+  whatWorked             String?
+  whatDidnt              String?
+  proposedContextUpdates Json?
+  contextUpdateStatus    String    @default("na")
+  recordedBy             String
+  recordedAt             DateTime  @default(now())
+  periodStart            DateTime?
+  periodEnd              DateTime?
+
+  artifact Artifact? @relation(fields: [artifactId], references: [id])
+  campaign Campaign  @relation(fields: [campaignId], references: [id])
+
+  @@index([contextUpdateStatus])
+  @@map("performance_logs")
+}
+
+model TeamMember {
+  id                String   @id
+  name              String
+  email             String   @unique
+  role              String   @default("member")
+  notificationPrefs Json     @default("{}")
+  createdAt         DateTime @default(now())
+
+  notifications Notification[]
+
+  @@map("team_members")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  memberId  String
+  type      String
+  title     String
+  body      String
+  linkUrl   String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  member TeamMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([memberId, isRead])
+  @@map("notifications")
+}
+
+// --- Issue #47: Customer Research ---
+
+model ResearchEntry {
+  id                String    @id @default(uuid())
+  title             String
+  sourceType        String // call | interview | survey | review | forum | support_ticket | social | common_room | other
+  contactName       String?
+  contactCompany    String?
+  contactSegment    String?
+  contactStage      String? // prospect | customer | churned | never_converted
+  researchDate      DateTime?
+  rawNotes          String
+  summary           String?
+  themes            String[]
+  sentiment         String? // positive | negative | neutral | mixed
+  productSignal     Boolean   @default(false)
+  productNote       String?
+  sentimentLocked   Boolean   @default(false)
+  hypothesisSignals Json? // stored after AI processing
+  campaignId        String?
+  createdBy         String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  campaign Campaign?       @relation(fields: [campaignId], references: [id])
+  quotes   ResearchQuote[]
+
+  @@map("research_entries")
+}
+
+model ResearchQuote {
+  id              String   @id @default(uuid())
+  researchEntryId String
+  quote           String
+  context         String?
+  theme           String?
+  segment         String?
+  isFeatured      Boolean  @default(false)
+  createdAt       DateTime @default(now())
+
+  entry ResearchEntry @relation(fields: [researchEntryId], references: [id], onDelete: Cascade)
+
+  @@map("research_quotes")
+}
+
+// --- Issue #49: Content Layer ---
+
+model ContentPiece {
+  id                String    @id @default(uuid())
+  title             String
+  slug              String    @unique
+  contentType       String // blog_post | case_study | landing_page | changelog | newsletter | social_thread | video_script | doc | other
+  status            String    @default("draft") // draft | review | approved | published | archived
+  body              String
+  excerpt           String?
+  metaTitle         String?
+  metaDescription   String?
+  targetKeyword     String?
+  secondaryKeywords String[]
+  canonicalUrl      String?
+  ogTitle           String?
+  ogDescription     String?
+  ogImageUrl        String?
+  twitterCardType   String?   @default("summary_large_image")
+  publishedAt       DateTime?
+  updatedAt         DateTime  @updatedAt
+  createdAt         DateTime  @default(now())
+  campaignId        String?
+  parentContentId   String?
+  artifactId        String?
+  contextVersionId  String?
+  createdBy         String
+
+  campaign        Campaign?               @relation(fields: [campaignId], references: [id])
+  parentContent   ContentPiece?           @relation("ContentRepurpose", fields: [parentContentId], references: [id])
+  derivedContent  ContentPiece[]          @relation("ContentRepurpose")
+  artifact        Artifact?               @relation(fields: [artifactId], references: [id])
+  contextVersion  ContextVersion?         @relation(fields: [contextVersionId], references: [id])
+  distributions   ContentDistribution[]
+  metricSnapshots ContentMetricSnapshot[]
+
+  @@index([status])
+  @@map("content_pieces")
+}
+
+model ContentDistribution {
+  id             String    @id @default(uuid())
+  contentPieceId String
+  channel        String // website | dev_to | hashnode | medium | newsletter | linkedin | twitter | youtube | other
+  url            String?
+  publishedAt    DateTime?
+  status         String    @default("planned") // planned | published | archived
+  notes          String?
+  createdAt      DateTime  @default(now())
+
+  content ContentPiece @relation(fields: [contentPieceId], references: [id], onDelete: Cascade)
+
+  @@map("content_distributions")
+}
+
+model ContentMetricSnapshot {
+  id             String   @id @default(uuid())
+  contentPieceId String
+  snapshotDate   DateTime
+  pageviews      Int?
+  uniqueVisitors Int?
+  avgTimeOnPage  Int? // seconds
+  bounceRate     Float?
+  organicClicks  Int?
+  impressions    Int?
+  avgPosition    Float?
+  ctr            Float?
+  socialShares   Int?
+  backlinks      Int?
+  comments       Int?
+  signups        Int?
+  conversionRate Float?
+  source         String   @default("manual") // manual | mcp_pull | scheduled_sync
+  notes          String?
+  recordedBy     String
+  createdAt      DateTime @default(now())
+
+  content ContentPiece @relation(fields: [contentPieceId], references: [id], onDelete: Cascade)
+
+  @@map("content_metric_snapshots")
+}
+
+model InstalledSkill {
+  id            String   @id @default(uuid())
+  source        String
+  githubRepo    String?
+  githubRef     String?
+  name          String
+  description   String
+  skillContent  String
+  references    Json     @default("[]")
+  isEnabled     Boolean  @default(true)
+  installedBy   String
+  installedAt   DateTime @default(now())
+  lastFetchedAt DateTime @default(now())
+  fetchError    String?
+
+  @@unique([githubRepo])
+  @@index([isEnabled])
+  @@index([name])
+  @@map("installed_skills")
+}
