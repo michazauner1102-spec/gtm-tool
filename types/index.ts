@@ -185,6 +185,10 @@ export const DISTRIBUTION_CHANNEL_VALUES = [
   'linkedin',
   'twitter',
   'youtube',
+  // smartConsulting Zauner: main social channels and the Skool community
+  'instagram',
+  'facebook',
+  'skool',
   'other',
 ] as const;
 export type DistributionChannel = typeof DISTRIBUTION_CHANNEL_VALUES[number];
@@ -251,6 +255,9 @@ export const DISTRIBUTION_CHANNEL_LABELS: Record<DistributionChannel, string> = 
   linkedin: 'LinkedIn',
   twitter: 'Twitter',
   youtube: 'YouTube',
+  instagram: 'Instagram',
+  facebook: 'Facebook',
+  skool: 'Skool',
   other: 'Other',
 };
 

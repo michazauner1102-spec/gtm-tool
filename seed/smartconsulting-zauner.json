@@ -1,0 +1,175 @@
+{
+  "$comment": "Marketing-Kontext und Start-Kampagnen für smartConsulting Zauner. Wird von scripts/seed-smartconsulting.mjs in die Datenbank geschrieben (npm run seed:smartconsulting). Quellen: smartconsultingzauner.com sowie Michas Vertriebs-, Audit-, Skool- und Social-Media-Leitfäden (Stand 09/2026). Nach dem Import im Kontext-Editor der App weiterpflegen; jede Änderung dort erzeugt eine neue Version.",
+  "workspace": {
+    "name": "smartConsulting Zauner",
+    "website": "https://www.smartconsultingzauner.com"
+  },
+  "context": {
+    "changeSummary": "smartConsulting Zauner Setup: Kontext aus Website, Vertriebs-, Audit-, Skool- und Social-Media-Leitfäden übernommen",
+    "positioningStatement": "smartConsulting Zauner: KI-Automatisierung für inhabergeführte Immobilienmakler im DACH-Raum. Wir nehmen Maklerbüros die Routinearbeit ab, die jeden Tag Stunden kostet: Anfragen rund um die Uhr vorqualifizieren, Google-Bewertungen automatisch einsammeln, Social-Media-Inhalte erstellen und individuelle Abläufe automatisieren. DSGVO-konform, passend zu den Abläufen des jeweiligen Büros und ohne dass das Team programmieren muss. Statt mit einem Pitch starten wir mit einem faktenbasierten Sichtbarkeits-Check und einem 10-Minuten-Gespräch. Das Ergebnis: mehr Sichtbarkeit, bessere Leads und weniger Verwaltungsaufwand, damit mehr Zeit für Eigentümer, Besichtigungen und Abschlüsse bleibt. Automatisierung entlastet das Team, sie ersetzt niemanden.",
+    "icpDefinition": {
+      "definition": "Inhabergeführte Immobilienmakler-Büros im DACH-Raum (Schwerpunkt Deutschland) mit kleinem bis mittlerem Team. Verkauf und Vermietung von Wohnimmobilien, teils Gewerbe und Kapitalanlage. Fachlich stark, technisch eher unsicher. Viele Anfragen, knappe Backoffice-Kapazität. Regionaler Schwerpunkt für persönliche Termine: Kirchheim unter Teck, Weilheim an der Teck, Nürtingen, Esslingen, Göppingen und Umgebung. Franchise-Standorte (z. B. Engel & Völkers, RE/MAX, VON POLL) nur nachrangig, weil dort die Entscheidungswege lang sind.",
+      "decisionMaker": "Inhaberin oder Inhaber bzw. Geschäftsführung des Maklerbüros: entscheidet selbst und schnell, ohne Einkaufsabteilung.",
+      "primaryUseCase": "Leitangebot: Ein KI-Assistent auf Website und WhatsApp nimmt Anfragen rund um die Uhr entgegen, qualifiziert Interessenten vor, schlägt passende Objekte vor und bucht Termine, bevor das Team ran muss. Weitere Module: automatisierte Google-Bewertungsakquise und Bewertungsmanagement, Social-Media-Automatisierung, KI-Investmentanalyse (ImmoFinder) sowie komplett individuelle Workflow-Automatisierungen.",
+      "jobsToBeDone": "1) Unqualifizierte Anfragen aussortieren, ohne Stunden am Telefon zu verbringen. 2) Mehr und aktuellere Google-Bewertungen als der stärkste Wettbewerber am Ort. 3) Auf Social Media regelmäßig sichtbar sein, ohne selbst Content zu produzieren. 4) Eigentümer und Verkäufer früher erreichen. 5) Das Backoffice entlasten, statt zusätzliche Stellen besetzen zu müssen. 6) Investoren gezielt passende Objekte vorschlagen.",
+      "painPoints": "Ständig neue Anfragen, der Großteil unqualifiziert. Manuelles Filtern und Nachfassen kostet Stunden. Wenige oder veraltete Google-Bewertungen im Vergleich zum Spitzenreiter am Ort. Social-Media-Kanäle eingeschlafen oder nur sporadisch bespielt. Offene Stellen für Assistenz oder Backoffice, die sich schwer besetzen lassen. Unsicherheit bei KI und Datenschutz (DSGVO).",
+      "buyingSignals": "Stellenanzeigen für Assistenz, Backoffice oder Sekretariat (genau die automatisierbaren Aufgaben), für Vertrieb (Wachstum, Budget vorhanden) oder für Marketing und Social Media (Bedarf erkannt, Lösung offen). Website ohne Online-Terminbuchung und ohne Chat oder Sofortkontakt. Wenige oder alte Google-Bewertungen. Eingeschlafene Social-Media-Kanäle.",
+      "secondarySegment": "Mittelständische Unternehmen außerhalb der Immobilienbranche, die KI-Integration und Prozessautomatisierung brauchen (von der CRM-Einführung bis zur KI-Integration). Nachrangig."
+    },
+    "messagingPillars": [
+      {
+        "pillar": "Zeit zurückgewinnen",
+        "message": "Anfragen beantworten, Bewertungen anfragen, Beiträge erstellen, Kunden informieren: Das erledigt die Automatisierung. Makler gewinnen Stunden pro Woche für Eigentümer, Besichtigungen und Abschlüsse zurück. Das Community-Versprechen lautet „wöchentlich 10+ Stunden“; als Zahl nur mit Beleg verwenden."
+      },
+      {
+        "pillar": "Bessere Leads statt mehr Anfragen",
+        "message": "Ein KI-Assistent qualifiziert Interessenten auf Website und WhatsApp rund um die Uhr vor, schlägt passende Objekte vor und bucht Termine. Das Team spricht nur noch mit Interessenten, die wirklich passen."
+      },
+      {
+        "pillar": "Sichtbarkeit, die Eigentümer überzeugt",
+        "message": "Wer verkaufen will, vergleicht Makler zuerst online. Automatisch eingesammelte Google-Bewertungen, ein gepflegtes Profil und regelmäßige Social-Media-Beiträge machen das Büro sichtbar, bevor der Eigentümer zum Hörer greift."
+      },
+      {
+        "pillar": "Maßgeschneidert statt Software von der Stange",
+        "message": "Jede Automatisierung wird passend zu den Abläufen des Büros gebaut, vom einzelnen Workflow bis zur komplett individuellen Lösung."
+      },
+      {
+        "pillar": "DSGVO-konform und ohne Programmierkenntnisse",
+        "message": "Datenschutzkonforme Automatisierungen, die ohne technisches Vorwissen funktionieren. Berührungsängste werden ernst genommen, nicht weggewischt."
+      },
+      {
+        "pillar": "Entlastung, nicht Rationalisierung",
+        "message": "Automatisierung nimmt dem Team Routinearbeit ab. Sie ersetzt niemanden, sondern schafft Luft für die Arbeit, die nur Menschen können."
+      }
+    ],
+    "competitiveLandscape": [
+      {
+        "name": "Status quo: alles selbst machen",
+        "notes": "Häufigste Alternative: Anfragen manuell filtern, zusätzliche Assistenz einstellen, Social Media „nebenbei“. Gegenargument: Stunden pro Woche und schwer besetzbare Stellen, ohne dass die Anfragen besser werden."
+      },
+      {
+        "name": "KI-Automatisierungsanbieter für Makler (z. B. ki-mueller.de, inno-brain.de)",
+        "notes": "Erscheinen bei denselben Suchbegriffen wie „KI-Automatisierung für Immobilienmakler“ (Stand 09/2026). Positionierung, Angebot und Preise noch nicht analysiert: in einer Strategy-Session mit dem Skill „competitors“ vertiefen."
+      },
+      {
+        "name": "KI-Assistenten und Chatbot-Anbieter mit Immobilienfokus (z. B. virtualworkforce.ai)",
+        "notes": "Bieten laut Suchtreffer KI-Assistenten u. a. für Immobilienunternehmen an. Abgrenzung: Spezialisierung auf inhabergeführte Makler im DACH-Raum und Umsetzung passend zu den Abläufen des Büros."
+      },
+      {
+        "name": "Maklersoftware und CRM (z. B. onOffice, FlowFact, Propstack)",
+        "notes": "Bei vielen Maklern bereits im Einsatz und eher Ergänzung als Konkurrenz. Automatisierungen sollten sich in bestehende Systeme einfügen, statt sie zu ersetzen (im Einzelfall prüfen)."
+      },
+      {
+        "name": "KI-Tool-Tipps von Creatorn und Kursanbietern (YouTube, Onlinekurse)",
+        "notes": "Wissen zum Selbermachen statt Umsetzung. Die kostenlose Skool-Community mit fertigen n8n-Templates ist die direkte Alternative und der weiche Einstieg in Umsetzungsprojekte."
+      }
+    ],
+    "customerLanguage": [
+      "Anfragen, Interessenten, Besichtigungen, Exposé, Objekte",
+      "Eigentümer, Verkäufer, Akquise, Alleinauftrag",
+      "Google-Bewertungen, Sterne, Rezensionen",
+      "Portale wie ImmoScout24 oder Immowelt",
+      "Backoffice, Assistenz, Sekretariat",
+      "Maklersoftware, CRM",
+      "Datenschutz, DSGVO",
+      "Hinweis: Noch keine echten Kundenzitate hinterlegt. Gesprächsnotizen unter Research erfassen, dann werden Zitate automatisch extrahiert."
+    ],
+    "proofPoints": [
+      "Angebot mit fünf Kernmodulen: Google-Bewertungsmanagement, automatisierte Bewertungsakquise, KI-Investmentanalyse (ImmoFinder), KI-Chatbot zur Vorqualifizierung von Anfragen, Social-Media-Automatisierung. Dazu komplett individuelle Automatisierungen.",
+      "Kostenlose Potenzialanalyse: kurzes Erstgespräch (ca. 10 Minuten) über Calendly.",
+      "Sichtbarkeits-Audit als Arbeitsprobe: nachvollziehbarer Score (Reputation 45 %, Conversion 35 %, Sichtbarkeit 20 %) mit echtem Wettbewerbs-Benchmark am Ort, jede Aussage mit Quelle.",
+      "Kostenlose Skool-Community „Makler-Automatisierung DACH“: n8n-Workflow-Templates, Schritt-für-Schritt-Guides, Prompt Library, jede Woche neue Workflows.",
+      "Standort Weilheim an der Teck (Region Stuttgart): persönliche Termine und Übergaben in der Region möglich.",
+      "Offen: Belegte Kundenergebnisse (z. B. Anteil qualifizierter Anfragen, gewonnene Bewertungen, eingesparte Stunden) fehlen noch. Erst über „Performance“ loggen, dann als Zahl in Texten verwenden."
+    ],
+    "activeHypotheses": [
+      "Die KI-Vorqualifizierung von Anfragen (Chatbot auf Website und WhatsApp) ist der stärkste Aufhänger für Erstgespräche.",
+      "Ein faktenbasiertes Sichtbarkeits-Audit mit lokalem Wettbewerbs-Benchmark öffnet mehr Türen als eine reine Pitch-Mail.",
+      "Offene Stellen für Assistenz, Backoffice, Vertrieb oder Marketing sind das stärkste Kaufsignal.",
+      "Weniger als 30 % der Makler-Anfragen sind wirklich qualifiziert. Bisher eine Annahme aus der Vertriebsvorlage: vor öffentlicher Verwendung mit eigener Erhebung belegen.",
+      "Ein 10-Minuten-Gespräch senkt die Hürde deutlich stärker als ein 30-Minuten-Termin.",
+      "Die kostenlose Skool-Community fängt Interessenten auf, die noch nicht sprechen wollen, und wird zur Pipeline für Umsetzungsprojekte.",
+      "Instagram-Beiträge mit Kommentarwort und fertigem DM-Lead-Magnet erzeugen Gespräche mit Maklern.",
+      "Inhabergeführte Büros entscheiden schneller als Franchise-Standorte."
+    ],
+    "brandVoice": "Sprache: Deutsch für den DACH-Raum. Ton: direkt, warm, ermutigend, ohne Hype.\n\nAnrede: Du-Form in Social Media, Skool, Kaltakquise-Mails und DMs (die Maklerbranche ist eher locker). Sie-Form nur in formellen Dokumenten wie dem Sichtbarkeits-Audit (nüchtern, gutachtenhaft).\n\nGrundsätze:\n- Technische Unsicherheit ernst nehmen, nie wegwischen: statt „ganz einfach“ die ehrliche Dauer nennen („beim ersten Mal etwa 90 Minuten“).\n- Fachwissen der Makler würdigen. Sie kennen ihren Markt besser als jedes KI-Modell.\n- Konkret statt abstrakt: eine Uhrzeit, ein Werkzeug, ein echter Satz aus dem Makleralltag.\n- Keine erfundenen Zahlen. Jede Zahl mit Bezugsgröße und Quelle, z. B. „Europace EPX, Stand März 2026“. Ohne Beleg ohne Zahl formulieren.\n- Nutzen beschreiben statt Features aufzählen. In Erstkontakt-Mails keine Produktnamen und nur ein Thema pro Mail.\n- Kaltakquise-Mails: höchstens 6 bis 8 Sätze, ein klarer CTA mit Website- und Calendly-Link, „10 Minuten“ betonen. Signatur (je eine Zeile): Beste Grüße / Micha Zauner / smartConsulting Zauner / KI-Automatisierung für Immobilienmakler / https://smartconsultingzauner.com\n- E-Mail-Kaltakquise ist in Deutschland rechtlich heikel (UWG § 7). Mails als Entwurf für den manuellen Versand schreiben, am besten als Nachfassen nach Anruf oder Besuch.\n- In Slides, Captions und DM-Texten keine Gedankenstriche. Emojis sparsam: in Slides keine, in Captions höchstens zwei.\n- Automatisierung als Entlastung darstellen, nie als Personalabbau.\n\nStandard-CTAs:\n- Website: https://smartconsultingzauner.com\n- 10-Minuten-Erstgespräch: https://calendly.com/smartconsultingzaunervertrieb/30min\n- Weicher Einstieg ohne Termin: kostenlose Skool-Community „Makler-Automatisierung DACH“, https://www.skool.com/smartconsulting-zauner-9015/about",
+    "wordsToUse": [
+      "Anfragen vorqualifizieren",
+      "rund um die Uhr",
+      "Zeit zurückgewinnen",
+      "Entlastung",
+      "DSGVO-konform",
+      "ohne Programmierkenntnisse",
+      "individuelle Automatisierung",
+      "Sichtbarkeit",
+      "Google-Bewertungen",
+      "10-Minuten-Gespräch",
+      "Makleralltag",
+      "Schritt für Schritt"
+    ],
+    "wordsToAvoid": [
+      "revolutionär",
+      "Game Changer",
+      "bahnbrechend",
+      "ganzheitlich",
+      "Mehrwert schaffen",
+      "KI-gestützt",
+      "intelligent",
+      "smart (als Adjektiv)",
+      "ganz einfach",
+      "in nur 5 Minuten",
+      "Wusstest-du-dass-Einstiege",
+      "Lass uns eintauchen",
+      "Personal einsparen",
+      "Mitarbeiter ersetzen"
+    ]
+  },
+  "campaigns": [
+    {
+      "name": "Sichtbarkeits-Audits (Türöffner)",
+      "description": "Faktenbasierte Sichtbarkeits-Audits für inhabergeführte Makler: Google-Reputation, Wettbewerbs-Benchmark, Website- und Conversion-Check, Social-Media-Check und offene Stellen, mit Score und drei Quick Wins. Übergabe persönlich, als Nachfass-Mail oder im Erstgespräch.",
+      "goal": "Aus jedem Audit ein 10-Minuten-Erstgespräch machen. Batches à 5 Makler in Kirchheim unter Teck, Weilheim an der Teck, Nürtingen, Esslingen, Göppingen und Umgebung.",
+      "channels": ["Audit-Report", "Telefon", "Besuch", "E-Mail"],
+      "status": "active",
+      "priority": "high"
+    },
+    {
+      "name": "Outreach: KI-Vorqualifizierung von Anfragen",
+      "description": "Kurze, recherchierte Erstkontakt-Mails (6 bis 8 Sätze, Du-Form) mit der KI-Vorqualifizierung als Aufhänger sowie Website- und Calendly-Link. Als Entwurf für den manuellen Versand, am besten als Nachfassen nach Anruf oder Besuch (UWG § 7).",
+      "goal": "Gebuchte 10-Minuten-Gespräche über Calendly.",
+      "channels": ["E-Mail", "Telefon"],
+      "status": "active",
+      "priority": "high"
+    },
+    {
+      "name": "Instagram: Makler-Automatisierung",
+      "description": "Carousels, Einzelbeiträge und Reels in den neun Design-Systemen (PAPIER, NACHT, KANTE, TAFEL, GITTER, WERKBANK, PROTOKOLL, SPIEGEL, PRÜFSTAND). Jede Zahl mit Quelle, ein Kommentarwort nur mit fertigem DM-Lead-Magnet.",
+      "goal": "Reichweite bei inhabergeführten Maklern und Gespräche über Kommentarwort-DMs.",
+      "channels": ["Instagram"],
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "name": "Skool-Community: Makler-Automatisierung DACH",
+      "description": "Kostenlose Community mit n8n-Workflow-Templates, Guides, Prompt Library und Markt-Updates. Weicher Einstieg für Makler, die noch nicht sprechen wollen.",
+      "goal": "Mitglieder gewinnen und aktivieren, aus aktiven Mitgliedern Umsetzungsprojekte entwickeln.",
+      "channels": ["Skool"],
+      "status": "active",
+      "priority": "medium",
+      "links": [
+        { "label": "Skool-Community", "url": "https://www.skool.com/smartconsulting-zauner-9015/about" }
+      ]
+    },
+    {
+      "name": "Website: News & Trends (SEO)",
+      "description": "Fachartikel für Makler rund um KI, Automatisierung und Immobilienmarkt auf smartconsultingzauner.com. Quiver kann über die Public Content API die Quelle für veröffentlichte Artikel sein.",
+      "goal": "Organische Sichtbarkeit für Suchen wie „KI für Immobilienmakler“ und „Automatisierung für Immobilienmakler“.",
+      "channels": ["Website"],
+      "status": "planning",
+      "priority": "medium",
+      "links": [
+        { "label": "News & Trends", "url": "https://www.smartconsultingzauner.com/news-trends" }
+      ]
+    }
+  ]
+}

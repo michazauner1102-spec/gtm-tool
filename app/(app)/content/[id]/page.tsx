@@ -149,6 +149,9 @@ const CHANNEL_COLORS: Record<DistributionChannel, string> = {
   linkedin: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
   twitter: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200',
   youtube: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
+  instagram: 'bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900 dark:text-fuchsia-200',
+  facebook: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200',
+  skool: 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200',
   other: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200',
 };
 

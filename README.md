@@ -1,3 +1,51 @@
+# gtm-tool · Quiver für smartConsulting Zauner
+
+Dieses Repository ist die Quiver-Instanz von [smartConsulting Zauner](https://www.smartconsultingzauner.com): ein selbst gehostetes KI-Marketing-Cockpit, in dem jede KI-Session mit Positionierung, Zielgruppe, Messaging und bisherigen Ergebnissen von smartConsulting startet. Basis ist das Open-Source-Projekt [Quiver](https://www.quivergtm.dev) ([tessak22/quiver](https://github.com/tessak22/quiver), MIT-Lizenz).
+
+## Was für smartConsulting eingerichtet ist
+
+- **Marketing-Kontext** in [`seed/smartconsulting-zauner.json`](seed/smartconsulting-zauner.json): Positionierung (KI-Automatisierung für inhabergeführte Makler im DACH-Raum), ICP mit Kaufsignalen, sechs Messaging-Säulen, Wettbewerb, Proof Points, Hypothesen, Tonalität (Du-Form, keine erfundenen Zahlen, UWG-Hinweis) und Standard-CTAs.
+- **Start-Kampagnen:** Sichtbarkeits-Audits (Türöffner), Outreach KI-Vorqualifizierung, Instagram, Skool-Community, Website News & Trends.
+- **Seed-Skript** `npm run seed:smartconsulting`: legt Kontext, Kampagnen und optional den Admin-Login an, ohne das Onboarding-Formular.
+- **Zusätzliche Kanäle** für Content-Distribution: Instagram, Facebook, Skool.
+- **KI-Modell** `claude-sonnet-5` (das ursprüngliche `claude-sonnet-4-20250514` ist seit 15.06.2026 abgeschaltet).
+
+## Einrichtung (ca. 30 Minuten)
+
+1. **Neon-Datenbank anlegen**, am einfachsten in Vercel unter *Storage → Neon*. Daraus kommen `DATABASE_URL` (pooled) und `DIRECT_URL` (direkt). Quiver braucht Neon, weil die Middleware über Neons HTTP-Treiber prüft, wer Zugriff hat.
+2. **Supabase-Projekt anlegen** (nur für den Login): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
+3. **Anthropic-API-Key** unter [console.anthropic.com](https://console.anthropic.com/settings/keys) erzeugen: `ANTHROPIC_API_KEY`.
+4. **Secrets erzeugen** (jeweils `openssl rand -base64 32`): `QUIVER_SHARE_SECRET`, `MCP_AUTH_SECRET`, `CRON_SECRET`. `MCP_AUTH_SECRET` ist Pflicht, sonst ist `/api/mcp` samt Schreibzugriff offen im Netz.
+5. **Vercel-Projekt** aus diesem Repo importieren, alle Variablen aus [`.env.example`](.env.example) eintragen, `NEXT_PUBLIC_APP_URL` auf die spätere Adresse setzen (z. B. `https://gtm.smartconsultingzauner.com` als CNAME auf Vercel).
+6. **Lokal Datenbank einrichten** (Werte in `.env.local`):
+   ```bash
+   npm ci
+   npx prisma migrate deploy
+   npm run seed:smartconsulting -- --admin-email michazauner@smartconsultingzauner.com --admin-name "Micha Zauner"
+   ```
+   Das Skript gibt für einen neu angelegten Login einmalig ein Passwort aus. Mit `--dry-run` zeigt es vorher nur an, was passieren würde. Ein erneuter Lauf ändert nichts Bestehendes; `--force` legt den Kontext als neue Version an (alte Versionen bleiben wiederherstellbar).
+7. **Einloggen** und unter *Context* den Kontext prüfen und nachschärfen. Jede Änderung wird versioniert.
+
+## Arbeiten mit Quiver
+
+- **Sessions:** *Strategy* für Positionierung und Kampagnen, *Create* für Texte (Kaltakquise-Mail, Social Posts, Landingpage …), *Feedback* für Gesprächsnotizen, *Analyze* und *Optimize* für Ergebnisse und bestehende Texte. Die Ausgaben sind deutsch, weil der Kontext es so vorgibt.
+- **Research:** Notizen aus Erstgesprächen und Audits einfügen. Quiver extrahiert Zitate und schlägt Kontext-Updates vor; die Kundenstimmen fehlen im Kontext bisher bewusst.
+- **Performance:** Ergebnisse loggen (Antwortquoten, gebuchte Gespräche, Reichweite). Erst belegte Zahlen dürfen in Texte.
+- **Website:** Veröffentlichte Inhalte liefert `GET /api/public/content` aus, z. B. für die Seite *News & Trends* auf smartconsultingzauner.com.
+- **Claude-Anbindung:** `https://<deine-domain>/api/mcp` als Connector mit `Authorization: Bearer <MCP_AUTH_SECRET>` eintragen.
+
+## Updates aus dem Original-Projekt holen
+
+```bash
+git fetch upstream && git merge upstream/main
+```
+
+(`upstream` zeigt auf `https://github.com/tessak22/quiver.git`; in einem frischen Klon vorher `git remote add upstream https://github.com/tessak22/quiver.git`.)
+
+---
+
+*Die ursprüngliche Quiver-Dokumentation folgt unverändert.*
+
 # Quiver
 
 Quiver is an open-source, self-hosted, AI-powered marketing command center for product teams. Every session starts with your actual positioning, ICP, messaging, and past results, so outputs improve as your team logs more work.

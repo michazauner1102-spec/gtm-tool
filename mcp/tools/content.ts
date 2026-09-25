@@ -355,7 +355,7 @@ export function registerContentTools(server: McpServer) {
     {
       content_id: z.string().optional().describe('Content piece ID'),
       slug: z.string().optional().describe('Content piece slug'),
-      channel: z.string().describe('Distribution channel (website, dev_to, hashnode, medium, newsletter, linkedin, twitter, youtube, other)'),
+      channel: z.string().describe('Distribution channel (website, dev_to, hashnode, medium, newsletter, linkedin, twitter, youtube, instagram, facebook, skool, other)'),
       url: z.string().optional().describe('Distribution URL'),
       status: z.string().optional().default('planned').describe('Distribution status'),
       notes: z.string().optional().describe('Notes'),
@@ -365,7 +365,7 @@ export function registerContentTools(server: McpServer) {
         // Validate channel
         const VALID_CHANNELS = [
           'website', 'dev_to', 'hashnode', 'medium', 'newsletter',
-          'linkedin', 'twitter', 'youtube', 'other',
+          'linkedin', 'twitter', 'youtube', 'instagram', 'facebook', 'skool', 'other',
         ] as const;
         if (!VALID_CHANNELS.includes(args.channel as typeof VALID_CHANNELS[number])) {
           return error(

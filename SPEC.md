@@ -55,7 +55,7 @@ Quiver currently operates as seven connected layers:
 | Database | Supabase (Postgres) |
 | ORM | Prisma |
 | Auth | Supabase Auth |
-| AI | Anthropic SDK (`claude-sonnet-4-20250514`) |
+| AI | Anthropic SDK (`claude-sonnet-5`) |
 | Skills | Markdown files pinned in `/skills` |
 | MCP | `mcp/` stdio server + `/api/mcp` Streamable HTTP endpoint |
 | Deployment | Vercel |
@@ -244,7 +244,7 @@ Publication/distribution records for each channel.
 |---|---|---|
 | id | uuid PK | Auto-generated |
 | contentPieceId | uuid FK | Parent content |
-| channel | text | website/dev_to/hashnode/medium/newsletter/linkedin/twitter/youtube/other |
+| channel | text | website/dev_to/hashnode/medium/newsletter/linkedin/twitter/youtube/instagram/facebook/skool/other |
 | url | text | Channel URL |
 | publishedAt | timestamptz | Channel publish date |
 | status | text | `planned` / `published` / `archived` |

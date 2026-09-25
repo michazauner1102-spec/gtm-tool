@@ -23,10 +23,10 @@ This is open source (MIT). Write code as if other teams will read, fork, and dep
 | Framework | Next.js 14, App Router |
 | Styling | Tailwind CSS |
 | Components | shadcn/ui |
-| Database | Supabase (Postgres) |
+| Database | Postgres on Neon (Prisma; middleware reads it via `@neondatabase/serverless`) |
 | ORM | Prisma |
 | Auth | Supabase Auth |
-| AI | Anthropic SDK (`@anthropic-ai/sdk`) — `claude-sonnet-4-20250514` |
+| AI | Anthropic SDK (`@anthropic-ai/sdk`) — `claude-sonnet-5` (set in `lib/ai/client.ts`) |
 | Skills | Markdown files in `/skills` directory, pinned from `coreyhaines31/marketingskills` |
 | Deployment | Vercel |
 | Language | TypeScript strict mode throughout |
@@ -151,6 +151,17 @@ Do not pause for: UI components, API routes, lib utilities, types, bug fixes, de
 
 ---
 
+## This fork: smartConsulting Zauner
+
+This repository (`michazauner1102-spec/gtm-tool`) is smartConsulting Zauner's deployment of Quiver. Upstream is `tessak22/quiver`, kept as the `upstream` git remote.
+
+- The workspace context lives in `seed/smartconsulting-zauner.json` and is loaded with `npm run seed:smartconsulting` (`scripts/seed-smartconsulting.mjs`). After seeding, the in-app context editor is the source of truth; the JSON only matters for fresh deployments.
+- Marketing output is German (DACH), as set by the brand voice in the context. Code, comments and commit messages stay English.
+- Extra distribution channels `instagram`, `facebook` and `skool` are defined in `types/index.ts`, `mcp/tools/content.ts` and the content detail page.
+- Pull upstream releases with `git fetch upstream && git merge upstream/main`. Keep fork-specific changes small so these merges stay easy.
+
+---
+
 ## GitHub issues
 
-All work is tracked in GitHub issues at `github.com/tessak22/quiver/issues`. Each issue has full acceptance criteria. Reference the issue number in every commit. Work through issues in number order unless there is a clear dependency reason to do otherwise.
+Upstream work is tracked in GitHub issues at `github.com/tessak22/quiver/issues`. Each issue has full acceptance criteria. When contributing upstream, reference the issue number in every commit and work through issues in number order unless there is a clear dependency reason to do otherwise.

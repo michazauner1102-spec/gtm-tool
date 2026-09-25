@@ -15,13 +15,23 @@
  *   - Rate limits: caught and returned as structured errors with retryAfter hint.
  *   - Network failures: caught and wrapped in AIError with original cause.
  *   - Stream interruptions: the ReadableStream controller is properly closed on error.
+ *   - Thinking: Claude Sonnet 5 runs adaptive thinking when `thinking` is omitted,
+ *     and thinking tokens count against max_tokens. Streaming sessions keep it
+ *     (only text deltas are forwarded, so thinking never reaches the client) and
+ *     get extra max_tokens headroom; sendMessage() disables it so the short
+ *     utility calls (titles, classification, JSON extraction) behave as before.
  */
 
 import Anthropic from '@anthropic-ai/sdk';
 import type { MessageParam } from '@anthropic-ai/sdk/resources/messages';
 
-const MODEL = 'claude-sonnet-4-20250514';
+// claude-sonnet-4-20250514 was retired on 2026-06-15 (requests return 404);
+// claude-sonnet-5 is its drop-in replacement in the same tier.
+const MODEL = 'claude-sonnet-5';
 const MAX_TOKENS = 8192;
+// Room for adaptive thinking plus a long answer in interactive sessions.
+// Streaming avoids the SDK's HTTP timeout at this size.
+const STREAM_MAX_TOKENS = 32000;
 
 export interface AIError {
   code: 'api_error' | 'rate_limit' | 'auth_error' | 'network_error' | 'unknown_error';
@@ -108,7 +118,7 @@ export function createStream(options: StreamOptions): {
         try {
           const response = client.messages.stream({
             model: MODEL,
-            max_tokens: options.maxTokens ?? MAX_TOKENS,
+            max_tokens: options.maxTokens ?? STREAM_MAX_TOKENS,
             system: options.system,
             messages: options.messages,
           });
@@ -152,6 +162,8 @@ export async function sendMessage(options: StreamOptions): Promise<
     const response = await client.messages.create({
       model: MODEL,
       max_tokens: options.maxTokens ?? MAX_TOKENS,
+      // Callers size max_tokens for the answer alone (down to 50 for titles).
+      thinking: { type: 'disabled' },
       system: options.system,
       messages: options.messages,
     });
