@@ -14,7 +14,7 @@ Dieses Repository ist die Quiver-Instanz von [smartConsulting Zauner](https://ww
 
 Nur lokal ausprobieren (http://localhost:3000)? Siehe [LOKAL-STARTEN.md](LOKAL-STARTEN.md).
 
-1. **Neon-Datenbank anlegen**, am einfachsten in Vercel unter *Storage → Neon*. Daraus kommen `DATABASE_URL` (pooled) und `DIRECT_URL` (direkt). Quiver braucht Neon, weil die Middleware über Neons HTTP-Treiber prüft, wer Zugriff hat.
+1. **Datenbank:** entweder Neon (in Vercel unter *Storage → Neon*) oder, wie bei smartConsulting eingerichtet, das bestehende Supabase-Projekt mit eigenem Schema `quiver` und eigener Rolle `quiver_app`. Die Supabase-Variante steht Schritt für Schritt in [`supabase/quiver-supabase.sql`](supabase/quiver-supabase.sql); die Middleware erkennt sie automatisch am Supabase-Host in `DATABASE_URL`.
 2. **Supabase-Projekt anlegen** (nur für den Login): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
 3. **Anthropic-API-Key** unter [console.anthropic.com](https://console.anthropic.com/settings/keys) erzeugen: `ANTHROPIC_API_KEY`.
 4. **Secrets erzeugen** (jeweils `openssl rand -base64 32`): `QUIVER_SHARE_SECRET`, `MCP_AUTH_SECRET`, `CRON_SECRET`. `MCP_AUTH_SECRET` ist Pflicht, sonst ist `/api/mcp` samt Schreibzugriff offen im Netz.

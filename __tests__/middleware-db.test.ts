@@ -53,3 +53,34 @@ describe('hasActiveContext', () => {
     await expect(hasActiveContext()).resolves.toEqual({ exists: false, failed: true });
   });
 });
+
+describe('Supabase backend (DATABASE_URL on supabase.com)', () => {
+  const rpc = vi.fn();
+  const client = { rpc };
+
+  beforeEach(() => {
+    rpc.mockReset();
+    process.env.DATABASE_URL =
+      'postgresql://quiver_app.ref:pw@aws-1-eu-west-1.pooler.supabase.com:6543/postgres';
+  });
+
+  it('asks quiver_is_member() instead of querying Neon', async () => {
+    rpc.mockResolvedValueOnce({ data: true, error: null });
+    await expect(isTeamMember('u1', client)).resolves.toBe(true);
+    expect(rpc).toHaveBeenCalledWith('quiver_is_member');
+    expect(sqlMock).not.toHaveBeenCalled();
+  });
+
+  it('fails closed on an RPC error or a missing client', async () => {
+    rpc.mockResolvedValueOnce({ data: null, error: { message: 'permission denied' } });
+    await expect(isTeamMember('u1', client)).resolves.toBe(false);
+    await expect(isTeamMember('u1')).resolves.toBe(false);
+  });
+
+  it('reports the active context from quiver_has_active_context()', async () => {
+    rpc.mockResolvedValueOnce({ data: false, error: null });
+    await expect(hasActiveContext(client)).resolves.toEqual({ exists: false, failed: false });
+    rpc.mockResolvedValueOnce({ data: null, error: { message: 'boom' } });
+    await expect(hasActiveContext(client)).resolves.toEqual({ exists: false, failed: true });
+  });
+});

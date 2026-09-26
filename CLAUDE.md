@@ -23,7 +23,7 @@ This is open source (MIT). Write code as if other teams will read, fork, and dep
 | Framework | Next.js 14, App Router |
 | Styling | Tailwind CSS |
 | Components | shadcn/ui |
-| Database | Postgres on Neon (Prisma; middleware reads it via `@neondatabase/serverless`) |
+| Database | Postgres on Neon or Supabase (Prisma; middleware checks in `lib/middleware-db.ts`) |
 | ORM | Prisma |
 | Auth | Supabase Auth |
 | AI | Anthropic SDK (`@anthropic-ai/sdk`) — `claude-sonnet-5` (set in `lib/ai/client.ts`) |

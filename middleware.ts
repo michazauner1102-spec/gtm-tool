@@ -81,7 +81,7 @@ export async function middleware(request: NextRequest) {
     if (cachedValue === user.id) {
       membershipCached = true;
     } else {
-      isMember = await isTeamMember(user.id);
+      isMember = await isTeamMember(user.id, supabase);
     }
   }
 
@@ -97,7 +97,7 @@ export async function middleware(request: NextRequest) {
      (!isOnboardingExempt && !request.cookies.get('quiver_onboarded')?.value));
 
   if (needsContextCheck) {
-    const result = await hasActiveContext();
+    const result = await hasActiveContext(supabase);
     activeContextExists = result.exists;
     contextQueryFailed = result.failed;
   }
