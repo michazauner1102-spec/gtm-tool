@@ -56,3 +56,31 @@ revoke all on function public.quiver_is_member() from public, anon;
 revoke all on function public.quiver_has_active_context() from public, anon;
 grant execute on function public.quiver_is_member() to authenticated;
 grant execute on function public.quiver_has_active_context() to authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Part 3 (optional): make the first admin automatically
+-- ---------------------------------------------------------------------------
+-- Replace <ADMIN_EMAIL>, then create that user in Supabase under
+-- Authentication -> Users -> Add user (auto confirm). The trigger gives the
+-- new login an admin row in quiver.team_members, so no /setup is needed.
+create or replace function public.quiver_bootstrap_admin()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  if lower(new.email) = lower('<ADMIN_EMAIL>') then
+    insert into quiver.team_members (id, name, email, role)
+    values (new.id::text, split_part(new.email, '@', 1), lower(new.email), 'admin')
+    on conflict (id) do update set role = 'admin';
+  end if;
+  return new;
+end;
+$$;
+
+revoke all on function public.quiver_bootstrap_admin() from public, anon, authenticated;
+
+create trigger quiver_bootstrap_admin
+after insert on auth.users
+for each row execute function public.quiver_bootstrap_admin();
